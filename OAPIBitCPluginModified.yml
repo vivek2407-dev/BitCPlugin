@@ -1,0 +1,98 @@
+openapi: 3.0.0
+
+info:
+  title: Beak Dev Stream API
+  description: Allows streaming of runs based on simplified user-provided input.
+  version: "1.0"
+
+servers:
+  - url: https://beak-dev.ilink-systems.com/api
+
+paths:
+  /bitc/runs/stream:
+    post:
+      operationId: postBeakDevStream
+      summary: Stream runs based on user-provided content.
+      description: This endpoint accepts simplified user-provided content while other fields are preconfigured.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: The text content of the user-provided input.
+                type:
+                  type: string
+                  description: Indicates the input type.
+                  example: "human"
+                example:
+                  type: boolean
+                  description: Whether the input is an example.
+                  example: false
+                assistant_id:
+                  type: string
+                  description: The unique assistant ID.
+                  example: "e7c98c95-67f8-4e19-8d89-3ee54ceaf7e1"
+                thread_id:
+                  type: string
+                  description: The unique thread ID.
+                  example: "28e20254-0876-4ba9-8ecd-2deb35cee3dc"
+              required:
+                - content
+                - type
+                - assistant_id
+                - thread_id
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostStreamResponse"
+
+components:
+  schemas:
+    PostStreamResponse:
+      type: array
+      description: A list of conversation messages exchanged during the session.
+      items:
+        type: object
+        properties:
+          content:
+            type: string
+            description: The text content of the message.
+          additional_kwargs:
+            type: object
+            description: Additional parameters related to the message.
+            example: {}
+          response_metadata:
+            type: object
+            description: Metadata about the response.
+            properties:
+              finish_reason:
+                type: string
+                description: Reason the AI response ended (if applicable).
+            example: { "finish_reason": "stop" }
+          type:
+            type: string
+            description: Indicates whether the message is from the user (`human`) or the AI (`ai`).
+            enum: ["human", "ai"]
+          name:
+            type: string
+            description: Name associated with the message (optional; typically null).
+            nullable: true
+          id:
+            type: string
+            description: Unique identifier for the message.
+          example:
+            type: boolean
+            description: Indicates whether the message is an example or part of the real conversation.
+          invalid_tool_calls:
+            type: array
+            description: A list of invalid tool calls during the AI response (if any).
+            items:
+              type: object
+            example: []
