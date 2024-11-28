@@ -1,0 +1,105 @@
+openapi: 3.0.0
+
+info:
+  title: Beak Dev Stream API
+  description: Allows streaming of runs based on input and user-provided content.
+  version: "1.0"
+
+servers:
+  - url: https://beak-dev.ilink-systems.com/api
+
+paths:
+  /bitc/runs/stream:
+    post:
+      operationId: postBeakDevStream
+      summary: Stream runs based on user-provided content.
+      description: This endpoint accepts user-provided content while other fields are preconfigured.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: array
+                  description: A list containing the user-provided content.
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: The user-provided content.
+                      additional_kwargs:
+                        type: object
+                        description: Additional parameters (hardcoded as empty object).
+                        example: {}
+                      type:
+                        type: string
+                        description: Input type (hardcoded as "human").
+                        example: "human"
+                      example:
+                        type: boolean
+                        description: Whether the content is an example (hardcoded as false).
+                        example: false
+                assistant_id:
+                  type: string
+                  description: Hardcoded assistant ID.
+                  example: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"
+                thread_id:
+                  type: string
+                  description: Hardcoded thread ID.
+                  example: "8da7de3b-81a4-4ab8-825d-c77e6c0ca03b"
+              required:
+                - input
+      responses:
+          "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PostStreamResponse"
+
+components:
+  schemas:
+    PostStreamResponse:
+      type: array
+      description: A list of conversation messages exchanged during the session.
+      items:
+        type: object
+        properties:
+          content:
+            type: string
+            description: The text content of the message.
+          additional_kwargs:
+            type: object
+            description: Additional parameters related to the message.
+            example: {}
+          response_metadata:
+            type: object
+            description: Metadata about the response.
+            properties:
+              finish_reason:
+                type: string
+                description: Reason the AI response ended (if applicable).
+            example: { "finish_reason": "stop" }
+          type:
+            type: string
+            description: Indicates whether the message is from the user (`human`) or the AI (`ai`).
+            enum: ["human", "ai"]
+          name:
+            type: string
+            description: Name associated with the message (optional; typically null).
+            nullable: true
+          id:
+            type: string
+            description: Unique identifier for the message.
+          example:
+            type: boolean
+            description: Indicates whether the message is an example or part of the real conversation.
+          invalid_tool_calls:
+            type: array
+            description: A list of invalid tool calls during the AI response (if any).
+            items:
+              type: object
+            example: []
