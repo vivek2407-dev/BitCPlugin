@@ -9,7 +9,7 @@ servers:
   - url: https://beak-dev.ilink-systems.com/api
 
 paths:
-  /bitc/runs/stream:
+  /bitc/runs/copilot_stream:
     post:
       operationId: postBeakDevStream
       summary: Stream runs based on user-provided content.
