@@ -37,3 +37,44 @@ components:
         content:
           type: string
           description: Details about the hostname.
+        Device:
+          type: object
+          description: Information about the device associated with the hostname.
+          properties:
+            DeviceId:
+              type: string
+              description: Unique identifier of the device.
+            DeviceType:
+              type: string
+              description: Type of the device (e.g., Laptop, Desktop).
+            OperatingSystem:
+              type: string
+              description: Operating system installed on the device.
+            LastLogin:
+              type: string
+              format: date-time
+              description: The last login time of the device.
+            Location:
+              type: string
+              description: Physical location of the device.
+        AssetDetails:
+          type: object
+          description: Details about the asset.
+          properties:
+            AssignedUser:
+              type: string
+              description: Name of the user assigned to the asset.
+            Department:
+              type: string
+              description: Department to which the asset belongs.
+            PurchaseDate:
+              type: string
+              format: date
+              description: The date the asset was purchased.
+            WarrantyExpiry:
+              type: string
+              format: date
+              description: The warranty expiry date of the asset.
+            AssetTag:
+              type: string
+              description: Unique inventory tag for the asset.
