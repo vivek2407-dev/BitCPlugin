@@ -1,0 +1,39 @@
+openapi: 3.0.0
+
+info:
+  title: Hostname Details API
+  description: Retrieve detailed information about a hostname.
+  version: "v1"
+
+servers:
+  - url: https://ebbb491d-e5f0-4a3a-8992-77afbef9ba0c.mock.pstmn.io
+
+paths:
+  /hostname/{hostname}:
+    get:
+      operationId: getHostnameDetails
+      summary: Get details about a specific hostname.
+      description: Retrieve detailed information about a hostname using its identifier.
+      parameters:
+        - in: path
+          name: hostname
+          schema:
+            type: string
+          required: true
+          description: The hostname identifier to query.
+      responses:
+        "200":
+          description: Successful response containing hostname details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getHostnameDetailsResponse"
+
+components:
+  schemas:
+    getHostnameDetailsResponse:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Details about the hostname.
