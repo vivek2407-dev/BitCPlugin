@@ -1,0 +1,132 @@
+openapi: 3.0.0
+
+info:
+  title: Ticket Summary API
+  description: Fetches a detailed summary of a ticket, including status, severity, and associated metadata.
+  version: "1.0"
+
+servers:
+  - url: https://beak-dev.ilink-systems.com/api
+
+paths:
+  /ticket/summary/{ticket_id}:
+    get:
+      operationId: getTicketSummary
+      summary: Retrieve detailed ticket summary
+      description: Fetches detailed information about a ticket, including its status, severity, affected devices, and description.
+      parameters:
+        - in: path
+          name: ticket_id
+          schema:
+            type: integer
+          required: true
+          description: The unique identifier of the ticket.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketSummaryResponse"
+
+components:
+  schemas:
+    TicketSummaryResponse:
+      type: object
+      description: Detailed ticket summary response.
+      properties:
+        module_code:
+          type: string
+          description: Module response code.
+        type:
+          type: string
+          description: Type of response, such as info or error.
+        summary:
+          type: string
+          description: A brief summary of the response.
+        code:
+          type: integer
+          description: HTTP status code of the response.
+        data:
+          type: object
+          description: Detailed ticket data.
+          properties:
+            ticketname:
+              type: string
+              description: Name of the ticket.
+            ticketid:
+              type: integer
+              description: Unique identifier of the ticket.
+            assignedto:
+              type: string
+              description: Email of the person assigned to the ticket.
+            status:
+              type: string
+              description: Current status of the ticket.
+            createddate:
+              type: string
+              format: date-time
+              description: Timestamp when the ticket was created.
+            severity:
+              type: string
+              description: Severity level of the ticket.
+            type:
+              type: string
+              description: Type of the ticket, e.g., incident or alert.
+            companyname:
+              type: string
+              description: Name of the associated company.
+            affecteddevices:
+              type: integer
+              description: Number of devices affected by the ticket.
+            totalthreats:
+              type: integer
+              description: Total number of threats associated with the ticket.
+            totalvulnerabilities:
+              type: integer
+              description: Total number of vulnerabilities associated with the ticket.
+            openvulnerabilities:
+              type: integer
+              description: Number of unresolved vulnerabilities.
+            description:
+              type: string
+              description: Detailed description of the ticket.
+            connectwiseid:
+              type: string
+              description: ConnectWise ID associated with the ticket.
+            connectwiseurl:
+              type: string
+              nullable: true
+              description: URL to the ConnectWise details page.
+            dashboardtorender1:
+              type: string
+              nullable: true
+              description: Renderable dashboard for ticket insights.
+            dashboardtorender2:
+              type: string
+              nullable: true
+              description: Additional renderable dashboard data.
+            dashboardtorender3:
+              type: string
+              nullable: true
+              description: Auxiliary renderable dashboard data.
+            biobsalertid:
+              type: string
+              nullable: true
+              description: BioBS alert ID if applicable.
+            jobsalertid:
+              type: string
+              nullable: true
+              description: Jobs alert ID if applicable.
+            monitorid:
+              type: string
+              nullable: true
+              description: Monitor ID associated with the ticket.
+            policyid:
+              type: string
+              nullable: true
+              description: Policy ID associated with the ticket.
+            policystatus:
+              type: string
+              nullable: true
+              description: Status of the policy associated with the ticket.
