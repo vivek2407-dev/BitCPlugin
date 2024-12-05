@@ -1,0 +1,66 @@
+openapi: 3.0.0
+
+info:
+  title: Beak Dev Stream API
+  description: Allows streaming of runs based on user-provided input while other fields are preconfigured.
+  version: "1.0"
+
+servers:
+  - url: https://beak-dev.ilink-systems.com/api
+
+paths:
+  /bitc/runs/copilot/stream:
+    post:
+      operationId: postBeakDevStream
+      summary: Stream runs based on user-provided content.
+      description: The `content` field is user-provided, while other fields are fixed and preconfigured.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: User-provided query or input.
+                  example: "Query to retrieve relevant information for analysis."
+                type:
+                  type: string
+                  description: Input type (fixed as `human`).
+                  enum: ["human"] # Fixed value
+                example:
+                  type: boolean
+                  description: Indicates whether the input is an example (always `false`).
+                  enum: [false] # Fixed value
+                assistant_id:
+                  type: string
+                  description: Unique assistant ID (preconfigured).
+                  example: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" # Fixed example
+                thread_id:
+                  type: string
+                  description: Unique thread ID (preconfigured).
+                  example: "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" # Fixed example
+              required:
+                - content
+                - type
+                - example
+                - assistant_id
+                - thread_id
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostStreamResponse"
+
+components:
+  schemas:
+    PostStreamResponse:
+      type: object
+      description: The structured response to the user query.
+      properties:
+        response:
+          type: string
+          description: The system's response content.
