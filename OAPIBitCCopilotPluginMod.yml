@@ -13,7 +13,9 @@ paths:
     post:
       operationId: postBeakDevStream
       summary: Stream runs based on user-provided content.
-      description: The `content` field is user-provided, while other fields are fixed and preconfigured.
+      description: |
+        The `content` field is user-provided, while the `assistant_id` and `thread_id` fields 
+        are fixed and preconfigured. These fields are required for ensuring consistent processing.
       requestBody:
         required: true
         content:
@@ -35,14 +37,12 @@ paths:
                   enum: [false] # Fixed value
                 assistant_id:
                   type: string
-                  description: Fixed value for the assistant ID (UUID format).
-                  example: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" # Example fixed UUID
-                  default: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" # Default value
+                  description: Fixed assistant ID.
+                  enum: ["8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"] # Fixed valid UUID
                 thread_id:
                   type: string
-                  description: Fixed value for the thread ID (UUID format).
-                  example: "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" # Example fixed UUID
-                  default: "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" # Default value
+                  description: Fixed thread ID.
+                  enum: ["0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f"] # Fixed valid UUID
               required:
                 - content
                 - type
