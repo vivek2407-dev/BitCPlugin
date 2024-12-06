@@ -35,8 +35,8 @@ paths:
                   enum: [false] # Fixed value
                 assistant_id:
                   type: string
-                  description: Unique assistant ID (fixed value).
-                  enum: ["8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"] # Fixed value
+                  description: Unique assistant ID (fixed as a valid UUID).
+                  enum: ["8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"] # Fixed valid UUID
                 thread_id:
                   type: string
                   description: Unique thread ID (preconfigured).
