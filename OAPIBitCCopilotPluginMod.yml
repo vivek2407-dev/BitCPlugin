@@ -39,8 +39,8 @@ paths:
                   enum: ["8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"] # Fixed valid UUID
                 thread_id:
                   type: string
-                  description: Unique thread ID (preconfigured).
-                  enum: ["0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f"] # Fixed value
+                  description: Unique thread ID (fixed as a valid UUID).
+                  enum: ["0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f"] # Fixed valid UUID
               required:
                 - content
                 - type
