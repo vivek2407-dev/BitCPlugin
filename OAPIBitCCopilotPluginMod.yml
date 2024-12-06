@@ -35,12 +35,14 @@ paths:
                   enum: [false] # Fixed value
                 assistant_id:
                   type: string
-                  description: Use "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" as the value of the assistant_id.
-                  enum: ["8f52cb6c-3670-4d46-8f03-ff77e7b4ac98"] # Fixed valid UUID as array
+                  description: Fixed value for the assistant ID (UUID format).
+                  example: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" # Example fixed UUID
+                  default: "8f52cb6c-3670-4d46-8f03-ff77e7b4ac98" # Default value
                 thread_id:
                   type: string
-                  description: Use "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" as the value of the thread_id.
-                  enum: ["0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f"] # Fixed valid UUID as array
+                  description: Fixed value for the thread ID (UUID format).
+                  example: "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" # Example fixed UUID
+                  default: "0ca1a7f9-0ff4-4a2a-bde9-2c06c0f8261f" # Default value
               required:
                 - content
                 - type
