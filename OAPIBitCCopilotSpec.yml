@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Beak Intelligent Technical Co-Pilot(BITC) API
+  version: "1.0"
+servers:
+  - url: https://beak-dev.ilink-systems.com/api
+paths:
+  /bitc/runs/copilot/stream:
+    post:
+      summary: Stream runs based on user-provided content.
+      description: Streams AI-generated responses based on input.
+      operationId: postBITCStream
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: User-provided input.
+                  example: "Retrieve asset details for RAS-SERVER19-Am."
+      parameters:
+        - name: emailid
+          in: header
+          required: true
+          schema:
+            type: string
+            default: security.copilot@ilink-systems.com
+          description: Email ID of the user making the request. Fixed value is "security.copilot@ilink-systems.com".
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The AI-generated response.
